@@ -43,13 +43,13 @@ public class Player : MonoBehaviour
         if(RightGo)
         {
             //print("Right");
-            animator.SetTrigger("Running");
+            animator.SetFloat("MoveSpeed", speed);
             this.transform.Translate(new Vector3(0,0,0.3f) * speed*Time.deltaTime);
 
             if (transform.position.x >= 9.5 && transform.position.x <= 15.0)
             {
                 rb.AddForce(Vector2.up * 0.2f, ForceMode.Impulse);
-                animator.SetBool("Running", false);
+                animator.SetBool("Grounded", false);
 
             }
                 
@@ -57,14 +57,14 @@ public class Player : MonoBehaviour
         else if(UpGo)
         {
             //print("Up");
-            animator.SetTrigger("ClimbingLadder");
+            animator.SetBool("Grounded", false);
             this.transform.Translate(new Vector3(0, 0.3f, 0) * speed * Time.deltaTime);
         }
         
         else if(LeftGo)
         {
             //print("Left");
-            animator.SetTrigger("Running");
+            animator.SetFloat("MoveSpeed", speed);
             this.transform.Translate(new Vector3(0, 0, 0.3f) * speed * Time.deltaTime);
         }
     }
@@ -110,7 +110,8 @@ public class Player : MonoBehaviour
             UpGo = false;
             LeftGo = false;
             RightGo = false;
-            animator.SetTrigger("Victory");
+            animator.SetTrigger("Grounded");
+            animator.SetFloat("MoveSpeed", 0);
         }
     }
 
